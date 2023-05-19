@@ -38,7 +38,8 @@ spike_emg = nonzeros(spike_emg);
 spike_idx = nonzeros(spike_idx);
 %% 
 % Plot EMG spike starting points
-figure;
+% figure;
+subplot(2,2,1);
 plot(Xs,emg_rms);
 hold on;
 line([0 Xs(end)], [threshold threshold], 'LineWidth', 0.5, 'Color', 'k');
@@ -64,7 +65,8 @@ slope_rms = movmean(Acc_slope,100);
 % plot(Xs_acc,Acc);
 % hold on;
 % plot(Acc_rms);
-figure;
+% figure;
+subplot(2,2,2);
 plot(Acc_rms);
 hold on;
 % plot(Xs_acc,Acc_slope);
@@ -96,14 +98,16 @@ spike_acc = nonzeros(spike_acc);
 acc_idx = nonzeros(acc_idx);
 %%
 
-figure;
+% figure;
+subplot(2,2,3);
 plot(Xs_acc,slope_rms);
 hold on;
 line([0 Xs_acc(end)], [upper_th upper_th], 'LineWidth', 0.5, 'Color', 'k');
 line([0 Xs_acc(end)], [lower_th lower_th], 'LineWidth', 0.5, 'Color', 'c');
 hold off;
 
-figure;
+% figure;
+subplot(2,2,4);
 plot(Xs_acc,Acc_rms);
 hold on;
 plot(acc_idx,spike_acc,'r*');
