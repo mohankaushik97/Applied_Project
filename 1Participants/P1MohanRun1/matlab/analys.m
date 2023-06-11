@@ -110,12 +110,81 @@ hold on;
 plot(acc_idx,spike_acc,'r*');
 hold off;
 
+%% 
+% close all;
+
+load('gaze.mat');
+
+figure;
+Xs_gaze = Xs_gaze./1000000;
+gaze = sqrt(gazeX.^2 + gazeY.^2);
+gaze_rms = movmean(gaze,200);
+
+
+% plot(x, y);
+% hold on;
+% plot(x(locs), pks, 'ro', 'MarkerSize', 10);
+% hold off;
+
+% plot(Xs_gaze,gazeX);
+% plot(Xs_gaze,gaze_rms);
+% hold on;
+
+
+gaze_diff = diff(gaze_rms);
+
+Xs_gaze_diff = diff(Xs_gaze);
+
+gaze_slope = gaze_diff./Xs_gaze_diff;
+gaze_slope(end+1) = NaN;
+
+gaze_slope_rms = movmean(gaze_slope,100);
+
+plot(Xs_gaze,gaze_rms);
+
+minPeakHeight = 0.4*10^(-4);
+minPeakDistance = 100.0;
+
+[pks, locs] = findpeaks(gaze_slope_rms,'MinPeakHeight', minPeakHeight, 'MinPeakDistance', minPeakDistance);
+hold on;
+
+gaze_move = locs - 100;
+
+plot(Xs_gaze(gaze_move), gaze_rms(gaze_move), 'r*', 'MarkerSize', 10);
+
+
+% 
+% Acc_diff = diff(_rms);
+% 
+% Xs_acc_diff = diff(Xs_acc);
+% 
+% Acc_slope = Acc_diff./Xs_acc_diff;
+% Acc_slope(end+1) = NaN;
+% 
+% 
+% slope_rms = movmean(Acc_slope,100);
+% 
+%% 
+figure;
+subplot(3,1,1);
+plot(Xs_acc,Acc_rms);
+subplot(3,1,2);
+plot(Xs,emg_rms);
+subplot(3,1,3);
+plot(Xs_gaze,gaze_rms);
+
+
+
 %%
 figure;
-plot(acc_idx,1,'r*');
+plot(acc_idx,1,'b*');
 hold on;
 plot(spike_idx,1,'k+');
-
+plot(Xs_gaze(gaze_move)./1000000, 1,'r.');
+hold off;
+legend('Accelerometer(*)','EMG(+)','Gaze(.)');
 
 diff_idx = spike_idx-acc_idx;
 avg_diff = mean(diff_idx)*1000;
+message = "On average, the emg signals are about " + num2str(avg_diff) + "ms ahead of accelerometer.";
+disp(message);

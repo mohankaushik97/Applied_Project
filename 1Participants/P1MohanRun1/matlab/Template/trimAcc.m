@@ -20,7 +20,7 @@ Xs_acc = data.Xs_acc;
 AccX = data.AccX;
 AccY = data.AccY;
 AccZ = data.AccZ;
-save('acc.mat', 'Xs_acc', 'AccX', 'AccY', 'AccZ');
+
 
 
 nonzero_rows = any([AccX, AccY, AccZ], 2);
