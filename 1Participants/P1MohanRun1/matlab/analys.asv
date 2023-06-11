@@ -181,18 +181,16 @@ plot(Xs_gaze(gaze_move), gaze_rms(gaze_move), 'r*', 'MarkerSize', 10);
 
 %%
 figure;
-plot(acc_idx(1:end-1),1,'b*');
+plot(acc_idx,1,'b*');
 hold on;
-plot(spike_idx(1:end-1),1,'k+');
+plot(spike_idx,1,'k+');
 plot(Xs_gaze(gaze_move), 1,'r.');
 hold off;
 legend('Accelerometer(*)','EMG(+)','Gaze(.)');
 title("Acc vs EMG vs Gaze");
 
-diff_idx = spike_idx(1:end-1)-acc_idx(1:end-1);
+diff_idx = spike_idx-acc_idx;
 emg_diff = mean(diff_idx)*1000;
-gaze_diff = mean(Xs_gaze(gaze_move)-spike_idx(1:end-1))*1000;
-message = "On average, the emg signals are about " + num2str(emg_diff) + "ms" + ...
-    " ahead of accelerometer and the gaze signals are about " + ... 
-num2str(gaze_diff) + "ms ahead of emg signals.";
+gaze_diff = 
+message = "On average, the emg signals are about " + num2str(emg_diff) + "ms ahead of accelerometer.";
 disp(message);

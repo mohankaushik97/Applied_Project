@@ -73,14 +73,14 @@ figure;
 plot(Xs_acc,acc_mag);
 hold on;
 
-start_time = Xs_acc(end_idx+500)
+start_time = Xs_acc(end_idx+100)
 end_time = Xs_acc(end-1500)
 % Delete everything before the end of the third spike
-Xs_acc = Xs_acc(end_idx+500:end);
-AccX = AccX(end_idx+500:end);
-AccY = AccY(end_idx+500:end);
-AccZ = AccZ(end_idx+500:end);
-
+Xs_acc = Xs_acc(end_idx+100:end);
+AccX = AccX(end_idx+100:end);
+AccY = AccY(end_idx+100:end);
+AccZ = AccZ(end_idx+100:end);
+Xs_acc_org = Xs_acc;
 initial_timestamp = Xs_acc(1);
 Xs_acc = Xs_acc - initial_timestamp;
 
@@ -96,7 +96,7 @@ load("emg.mat");
 
 figure;
 plot(Xs,emg_rms);       
-idx = (Xs >= min(Xs_acc)) & (Xs <= max(Xs_acc));
+idx = (Xs >= min(Xs_acc_org)) & (Xs <= max(Xs_acc_org));
 
 Xs = Xs(idx);
 emg = emg(idx);
