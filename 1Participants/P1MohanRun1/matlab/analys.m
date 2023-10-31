@@ -10,8 +10,7 @@ load("emg_modified.mat");
 
 % plot(Xs,emg_rms);
 % hold on;
-%% 
-% EMG spike detection
+%% EMG spike detection
 
 
 % plot( emg_a);
@@ -36,8 +35,7 @@ while i<=(length(emg_rms)-wind)
 end
 spike_emg = nonzeros(spike_emg);
 spike_idx = nonzeros(spike_idx);
-%% 
-% Plot EMG spike starting points
+%% Plot EMG spike starting points
 figure;
 plot(Xs,emg_rms);
 hold on;
@@ -45,8 +43,7 @@ line([0 Xs(end)], [threshold threshold], 'LineWidth', 0.5, 'Color', 'k');
 plot(spike_idx,spike_emg,'r*');
 hold off;
 title("EMG Spike Points");
-%% 
-% ACC spike data. 
+%%  ACC spike data. 
 
 Acc = sqrt(AccX.^2 + AccY.^2 + AccZ.^2);
 
@@ -73,8 +70,7 @@ plot(slope_rms);
 legend("Acc rms","slope rms");
 hold off;
 title("RMS of ACC and slope of ACC");
-%% 
-% Ploting the ACC spike points. 
+%% Ploting the ACC spike points. 
 
 spike_acc =zeros(25,1);
 acc_idx = zeros(25,1);
